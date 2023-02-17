@@ -84,11 +84,12 @@ class Legend {
     } else if (this.isBarsDistributed) {
       legendNames = w.globals.labels.slice()
     }
-
+    let customLegendItemsColor = false
     if (w.config.legend.customLegendItems.length) {
       legendNames = w.config.legend.customLegendItems
       if (w.config.legend.customLegendItemsColor) {
         fillcolor = w.config.legend.customLegendItemsColor
+        customLegendItemsColor = true
       }
     }
     let legendFormatter = w.globals.legendFormatter
@@ -158,7 +159,7 @@ class Legend {
       }
 
       // override with data color
-      if (w.globals.seriesColors[i] !== undefined) {
+      if (!customLegendItemsColor && w.globals.seriesColors[i] !== undefined) {
         mStyle.background = w.globals.seriesColors[i]
         mStyle.color = w.globals.seriesColors[i]
       }
@@ -202,7 +203,10 @@ class Legend {
         'data:collapsed': collapsedSeries || ancillaryCollapsedSeries
       })
 
-      if (collapsedSeries || ancillaryCollapsedSeries) {
+      if (
+        collapsedSeries ||
+        (ancillaryCollapsedSeries && !customLegendItemsColor)
+      ) {
         elMarker.classList.add('apexcharts-inactive-legend')
       }
 
@@ -284,7 +288,10 @@ class Legend {
         'data:collapsed': collapsedSeries || ancillaryCollapsedSeries
       })
 
-      if (collapsedSeries || ancillaryCollapsedSeries) {
+      if (
+        collapsedSeries ||
+        (ancillaryCollapsedSeries && customLegendItemsColor)
+      ) {
         elLegend.classList.add('apexcharts-inactive-legend')
       }
 

@@ -1,5 +1,5 @@
 /*!
- * ApexCharts v1.0.1
+ * ApexCharts v1.0.0
  * (c) 2018-2023 ApexCharts
  * Released under the MIT License.
  */
@@ -8415,6 +8415,8 @@
             gl.seriesColors.push(ser[i].color);
           } else {
             gl.seriesColors.push(undefined);
+            console.log(gl);
+            console.log(ser);
           }
         }
 
@@ -13903,11 +13905,14 @@
           legendNames = w.globals.labels.slice();
         }
 
+        var customLegendItemsColor = false;
+
         if (w.config.legend.customLegendItems.length) {
           legendNames = w.config.legend.customLegendItems;
 
           if (w.config.legend.customLegendItemsColor) {
             fillcolor = w.config.legend.customLegendItemsColor;
+            customLegendItemsColor = true;
           }
         }
 
@@ -13964,7 +13969,7 @@
           } // override with data color
 
 
-          if (w.globals.seriesColors[i] !== undefined) {
+          if (!customLegendItemsColor && w.globals.seriesColors[i] !== undefined) {
             mStyle.background = w.globals.seriesColors[i];
             mStyle.color = w.globals.seriesColors[i];
           }
@@ -13992,7 +13997,7 @@
             'data:collapsed': collapsedSeries || ancillaryCollapsedSeries
           });
 
-          if (collapsedSeries || ancillaryCollapsedSeries) {
+          if (collapsedSeries || ancillaryCollapsedSeries && !customLegendItemsColor) {
             elMarker.classList.add('apexcharts-inactive-legend');
           }
 
@@ -14047,7 +14052,7 @@
             'data:collapsed': collapsedSeries || ancillaryCollapsedSeries
           });
 
-          if (collapsedSeries || ancillaryCollapsedSeries) {
+          if (collapsedSeries || ancillaryCollapsedSeries && customLegendItemsColor) {
             elLegend.classList.add('apexcharts-inactive-legend');
           }
 
