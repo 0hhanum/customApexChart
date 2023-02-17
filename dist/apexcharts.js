@@ -13997,7 +13997,7 @@
             'data:collapsed': collapsedSeries || ancillaryCollapsedSeries
           });
 
-          if (collapsedSeries || ancillaryCollapsedSeries && !customLegendItemsColor) {
+          if ((collapsedSeries || ancillaryCollapsedSeries) && !customLegendItemsColor) {
             elMarker.classList.add('apexcharts-inactive-legend');
           }
 
@@ -14052,7 +14052,7 @@
             'data:collapsed': collapsedSeries || ancillaryCollapsedSeries
           });
 
-          if (collapsedSeries || ancillaryCollapsedSeries && customLegendItemsColor) {
+          if ((collapsedSeries || ancillaryCollapsedSeries) && !customLegendItemsColor) {
             elLegend.classList.add('apexcharts-inactive-legend');
           }
 

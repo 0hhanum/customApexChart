@@ -49,6 +49,7 @@
     <div id="app">
       <div id="chart">
         <apexchart
+          ref="chart"
           type="boxPlot"
           height="350"
           :options="chartOptions"
@@ -67,6 +68,11 @@
     <script>
       new Vue({
         el: '#app',
+        mounted() {
+          setTimeout(() => {
+            this.$refs.chart.hideSeries('outliers')
+          }, 3000)
+        },
         components: {
           apexchart: VueApexCharts
         },

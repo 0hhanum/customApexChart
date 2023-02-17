@@ -204,8 +204,8 @@ class Legend {
       })
 
       if (
-        collapsedSeries ||
-        (ancillaryCollapsedSeries && !customLegendItemsColor)
+        (collapsedSeries || ancillaryCollapsedSeries) &&
+        !customLegendItemsColor
       ) {
         elMarker.classList.add('apexcharts-inactive-legend')
       }
@@ -289,8 +289,8 @@ class Legend {
       })
 
       if (
-        collapsedSeries ||
-        (ancillaryCollapsedSeries && customLegendItemsColor)
+        (collapsedSeries || ancillaryCollapsedSeries) &&
+        !customLegendItemsColor
       ) {
         elLegend.classList.add('apexcharts-inactive-legend')
       }
