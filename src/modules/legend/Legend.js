@@ -87,6 +87,9 @@ class Legend {
 
     if (w.config.legend.customLegendItems.length) {
       legendNames = w.config.legend.customLegendItems
+      if (w.config.legend.customLegendItemsColor) {
+        fillcolor = w.config.legend.customLegendItemsColor
+      }
     }
     let legendFormatter = w.globals.legendFormatter
 

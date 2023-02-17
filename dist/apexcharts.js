@@ -1,5 +1,5 @@
 /*!
- * ApexCharts v3.36.3
+ * ApexCharts v1.0.0
  * (c) 2018-2023 ApexCharts
  * Released under the MIT License.
  */
@@ -13905,6 +13905,10 @@
 
         if (w.config.legend.customLegendItems.length) {
           legendNames = w.config.legend.customLegendItems;
+
+          if (w.config.legend.customLegendItemsColor) {
+            fillcolor = w.config.legend.customLegendItemsColor;
+          }
         }
 
         var legendFormatter = w.globals.legendFormatter;
