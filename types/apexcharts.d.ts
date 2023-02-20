@@ -313,6 +313,7 @@ type ApexAxisChartSeries = {
   name?: string
   type?: string
   color?: string
+  calibration?:number
   data:
     | (number | null)[]
     | {
