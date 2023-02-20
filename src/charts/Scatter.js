@@ -148,21 +148,43 @@ export default class Scatter {
         pathFillCircle = w.config.series[i].data[dataPointIndex].fillColor
       }
     }
-    el.attr({
-      x: x - markerConfig.width / 2 - markerConfig.pointStrokeWidth / 2,
-      y: y - markerConfig.height / 2 - markerConfig.pointStrokeWidth / 2,
-      cx: w.config.series[realIndex].calibration
-        ? x + w.config.series[realIndex].calibration * window.barWidth
-        : x,
-      cy: y,
-      fill: pathFillCircle,
-      'fill-opacity': markerConfig.pointFillOpacity,
-      stroke: markerConfig.pointStrokeColor,
-      r: finishRadius,
-      'stroke-width': markerConfig.pointStrokeWidth,
-      'stroke-dasharray': markerConfig.pointStrokeDashArray,
-      'stroke-opacity': markerConfig.pointStrokeOpacity
-    })
+    if (
+      w.config.plotOptions.boxPlot &&
+      w.config.plotOptions.boxPlot.isMultiSeries
+    ) {
+      el.attr({
+        x: x - markerConfig.width / 2 - markerConfig.pointStrokeWidth / 2,
+        y: y - markerConfig.height / 2 - markerConfig.pointStrokeWidth / 2,
+        cx:
+          x +
+          w.config.plotOptions.boxPlot.calibration[
+            w.config.series[realIndex].name
+          ] *
+            window.barWidth,
+        cy: y,
+        fill: pathFillCircle,
+        'fill-opacity': markerConfig.pointFillOpacity,
+        stroke: markerConfig.pointStrokeColor,
+        r: finishRadius,
+        'stroke-width': markerConfig.pointStrokeWidth,
+        'stroke-dasharray': markerConfig.pointStrokeDashArray,
+        'stroke-opacity': markerConfig.pointStrokeOpacity
+      })
+    } else {
+      el.attr({
+        x: x - markerConfig.width / 2 - markerConfig.pointStrokeWidth / 2,
+        y: y - markerConfig.height / 2 - markerConfig.pointStrokeWidth / 2,
+        cx: x,
+        cy: y,
+        fill: pathFillCircle,
+        'fill-opacity': markerConfig.pointFillOpacity,
+        stroke: markerConfig.pointStrokeColor,
+        r: finishRadius,
+        'stroke-width': markerConfig.pointStrokeWidth,
+        'stroke-dasharray': markerConfig.pointStrokeDashArray,
+        'stroke-opacity': markerConfig.pointStrokeOpacity
+      })
+    }
 
     if (w.config.chart.dropShadow.enabled) {
       const dropShadow = w.config.chart.dropShadow
