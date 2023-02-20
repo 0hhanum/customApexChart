@@ -1218,6 +1218,6 @@ type ApexTheme = {
   }
 }
 
-declare module 'apexcharts' {
+declare module 'apexcharts0hhanum' {
   export = ApexCharts
 }
