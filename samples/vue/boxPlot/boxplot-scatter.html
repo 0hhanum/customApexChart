@@ -68,72 +68,242 @@
     <script>
       new Vue({
         el: '#app',
-        mounted() {
-          setTimeout(() => {
-            this.$refs.chart.hideSeries('outliers')
-          }, 3000)
-        },
         components: {
           apexchart: VueApexCharts
         },
         data: {
           series: [
             {
-              name: 'box',
+              name: '자산',
               type: 'boxPlot',
               data: [
                 {
-                  x: 'a',
-                  y: [54, 66, 69, 75, 88]
+                  x: '2015',
+                  y: [5000, 10000, 20000, 30000, 50000]
                 },
                 {
-                  x: 'b',
-                  y: [43, 65, 69, 76, 81]
+                  x: '2016',
+                  y: [2000, 9000, 15000, 30000, 40000]
                 },
                 {
-                  x: 'c',
-                  y: [31, 39, 45, 51, 59]
-                },
-                {
-                  x: 'd',
-                  y: [39, 46, 55, 65, 71]
-                },
-                {
-                  x: 'e',
-                  y: [29, 31, 35, 39, 44]
+                  x: '2017',
+                  y: [0, 7000, 13000, 28000, 38000]
                 }
               ]
             },
             {
-              name: 'outliers',
+              name: '평균',
               type: 'scatter',
-              color: 'black',
               data: [
                 {
-                  x: 'a',
-                  y: 32
+                  x: '2015',
+                  y: 12500
                 },
                 {
-                  x: 'b',
-                  y: 25
+                  x: '2016',
+                  y: 10000
                 },
                 {
-                  x: 'c',
-                  y: 64
+                  x: '2017',
+                  y: 8000
+                }
+              ],
+              color: '#000',
+              calibration: -0.5
+            },
+            {
+              name: '이상치0',
+              type: 'scatter',
+              data: [
+                {
+                  x: '2015',
+                  y: 90000
                 },
                 {
-                  x: 'd',
-                  y: 27
+                  x: '2016',
+                  y: 85000
                 },
                 {
-                  x: 'd',
-                  y: 8
+                  x: '2017',
+                  y: 83000
+                }
+              ],
+              color: '#fff',
+              calibration: -0.5
+            },
+            {
+              name: '이상치 (1)0',
+              type: 'scatter',
+              data: [
+                {
+                  x: '2015',
+                  y: 80000
                 },
                 {
-                  x: 'e',
-                  y: 15
+                  x: '2016',
+                  y: 3000
+                },
+                {
+                  x: '2017',
+                  y: 1000
+                }
+              ],
+              color: '#fff',
+              calibration: -0.5
+            },
+            {
+              name: '이상치 (2)0',
+              type: 'scatter',
+              data: [
+                {
+                  x: '2015',
+                  y: 70000
+                },
+                {
+                  x: '2016',
+                  y: 1000
+                },
+                {
+                  x: '2017',
+                  y: -1000
+                }
+              ],
+              color: '#fff',
+              calibration: -0.5
+            },
+            {
+              name: '이상치 (3)0',
+              type: 'scatter',
+              data: [
+                {
+                  x: '2015',
+                  y: 85000
+                },
+                {
+                  x: '2016',
+                  y: 83000
+                }
+              ],
+              color: '#fff',
+              calibration: -0.5
+            },
+            {
+              name: '자본',
+              type: 'boxPlot',
+              data: [
+                {
+                  x: '2015',
+                  y: [5000, 10000, 20000, 30000, 50000]
+                },
+                {
+                  x: '2016',
+                  y: [6000, 12000, 24000, 36000, 60000]
+                },
+                {
+                  x: '2017',
+                  y: [7800, 15600, 31200, 46800, 78000]
                 }
               ]
+            },
+            {
+              name: '평균',
+              type: 'scatter',
+              data: [
+                {
+                  x: '2015',
+                  y: 12500
+                },
+                {
+                  x: '2016',
+                  y: 15000
+                },
+                {
+                  x: '2017',
+                  y: 19500
+                }
+              ],
+              color: '#000',
+              calibration: 0.5
+            },
+            {
+              name: '이상치1',
+              type: 'scatter',
+              data: [
+                {
+                  x: '2015',
+                  y: 90000
+                },
+                {
+                  x: '2016',
+                  y: 108000
+                },
+                {
+                  x: '2017',
+                  y: 140400
+                }
+              ],
+              color: '#fff',
+              calibration: 0.5
+            },
+            {
+              name: '이상치 (1)1',
+              type: 'scatter',
+              data: [
+                {
+                  x: '2015',
+                  y: 80000
+                },
+                {
+                  x: '2016',
+                  y: 96000
+                },
+                {
+                  x: '2017',
+                  y: 124800
+                }
+              ],
+              color: '#fff',
+              calibration: 0.5
+            },
+            {
+              name: '이상치 (2)1',
+              type: 'scatter',
+              data: [
+                {
+                  x: '2015',
+                  y: 70000
+                },
+                {
+                  x: '2016',
+                  y: 84000
+                },
+                {
+                  x: '2017',
+                  y: 109200
+                }
+              ],
+              color: '#fff',
+              calibration: 0.5
+            },
+            {
+              name: '이상치 (3)1',
+              type: 'scatter',
+              data: [
+                {
+                  x: '2015',
+                  y: 80000
+                },
+                {
+                  x: '2016',
+                  y: 3000
+                },
+                {
+                  x: '2017',
+                  y: 1000
+                }
+              ],
+              color: '#fff',
+              calibration: 0.5
             }
           ],
           chartOptions: {
@@ -150,10 +320,24 @@
               text: 'BoxPlot - Scatter Chart',
               align: 'left'
             },
-            xaxis: {},
+            xaxis: {
+              tickPlacement: 'between'
+            },
             tooltip: {
               shared: false,
               intersect: true
+            },
+            plotOptions: {
+              bar: {
+                columnWidth: '30%'
+              },
+              boxPlot: {
+                colors: ['#555', '#f78', '#f78', '#f97', '#555'],
+                isMultiSeries: true
+              }
+            },
+            markers: {
+              size: 3
             }
           }
         }

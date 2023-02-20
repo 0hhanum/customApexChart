@@ -1,5 +1,5 @@
 /*!
- * ApexCharts v1.0.0
+ * ApexCharts v1.0.3
  * (c) 2018-2023 ApexCharts
  * Released under the MIT License.
  */
@@ -7067,7 +7067,7 @@
         el.attr({
           x: x - markerConfig.width / 2 - markerConfig.pointStrokeWidth / 2,
           y: y - markerConfig.height / 2 - markerConfig.pointStrokeWidth / 2,
-          cx: x,
+          cx: w.config.series[realIndex].calibration ? x + w.config.series[realIndex].calibration * window.barWidth : x,
           cy: y,
           fill: pathFillCircle,
           'fill-opacity': markerConfig.pointFillOpacity,
@@ -8415,8 +8415,6 @@
             gl.seriesColors.push(ser[i].color);
           } else {
             gl.seriesColors.push(undefined);
-            console.log(gl);
-            console.log(ser);
           }
         }
 
@@ -20185,6 +20183,8 @@
           barHeight = initPositions.barHeight;
           yDivision = initPositions.yDivision;
           zeroW = initPositions.zeroW;
+          window.barWidth = initPositions.barWidth; // custom
+
           x = initPositions.x;
           barWidth = initPositions.barWidth;
           xDivision = initPositions.xDivision;
@@ -20301,7 +20301,11 @@
         var color = '';
 
         if (this.isBoxPlot) {
-          color = [this.boxOptions.colors[j], this.boxOptions.colors[j]];
+          if (this.boxOptions.isMultiSeries) {
+            color = [this.boxOptions.colors[i], this.boxOptions.colors[i]];
+          } else {
+            color = [this.boxOptions.colors[j], this.boxOptions.colors[j]];
+          }
         }
 
         var yRatio = this.yRatio[this.yaxisIndex];

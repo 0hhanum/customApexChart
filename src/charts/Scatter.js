@@ -22,14 +22,11 @@ export default class Scatter {
 
   draw(elSeries, j, opts) {
     let w = this.w
-
     let graphics = new Graphics(this.ctx)
-
     let realIndex = opts.realIndex
     let pointsPos = opts.pointsPos
     let zRatio = opts.zRatio
     let elPointsMain = opts.elParent
-
     let elPointsWrap = graphics.group({
       class: `apexcharts-series-markers apexcharts-series-${w.config.chart.type}`
     })
@@ -40,7 +37,6 @@ export default class Scatter {
       for (let q = 0; q < pointsPos.x.length; q++) {
         let dataPointIndex = j + 1
         let shouldDraw = true
-
         // a small hack as we have 2 points for the first val to connect it
         if (j === 0 && q === 0) dataPointIndex = 0
         if (j === 0 && q === 1) dataPointIndex = 1
@@ -72,7 +68,6 @@ export default class Scatter {
 
         let x = pointsPos.x[q]
         let y = pointsPos.y[q]
-
         radius = radius || 0
 
         if (
@@ -102,14 +97,13 @@ export default class Scatter {
 
   drawPoint(x, y, radius, finishRadius, realIndex, dataPointIndex, j) {
     const w = this.w
-
     let i = realIndex
     let anim = new Animations(this.ctx)
     let filters = new Filters(this.ctx)
     let fill = new Fill(this.ctx)
     let markers = new Markers(this.ctx)
-    const graphics = new Graphics(this.ctx)
 
+    const graphics = new Graphics(this.ctx)
     const markerConfig = markers.getMarkerConfig({
       cssClass: 'apexcharts-marker',
       seriesIndex: i,
@@ -154,11 +148,12 @@ export default class Scatter {
         pathFillCircle = w.config.series[i].data[dataPointIndex].fillColor
       }
     }
-
     el.attr({
       x: x - markerConfig.width / 2 - markerConfig.pointStrokeWidth / 2,
       y: y - markerConfig.height / 2 - markerConfig.pointStrokeWidth / 2,
-      cx: x,
+      cx: w.config.series[realIndex].calibration
+        ? x + w.config.series[realIndex].calibration * window.barWidth
+        : x,
       cy: y,
       fill: pathFillCircle,
       'fill-opacity': markerConfig.pointFillOpacity,

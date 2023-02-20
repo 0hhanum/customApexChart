@@ -505,8 +505,6 @@ export default class Data {
         gl.seriesColors.push(ser[i].color)
       } else {
         gl.seriesColors.push(undefined)
-        console.log(gl)
-        console.log(ser)
       }
     }
 

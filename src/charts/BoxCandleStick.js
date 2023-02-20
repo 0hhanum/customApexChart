@@ -69,12 +69,11 @@ class BoxCandleStick extends Bar {
       }
 
       let initPositions = this.barHelpers.initialPositions()
-
       y = initPositions.y
       barHeight = initPositions.barHeight
       yDivision = initPositions.yDivision
       zeroW = initPositions.zeroW
-
+      window.barWidth = initPositions.barWidth // custom
       x = initPositions.x
       barWidth = initPositions.barWidth
       xDivision = initPositions.xDivision
@@ -194,9 +193,12 @@ class BoxCandleStick extends Bar {
     let colorPos = w.config.plotOptions.candlestick.colors.upward
     let colorNeg = w.config.plotOptions.candlestick.colors.downward
     let color = ''
-
     if (this.isBoxPlot) {
-      color = [this.boxOptions.colors[j], this.boxOptions.colors[j]]
+      if (this.boxOptions.isMultiSeries) {
+        color = [this.boxOptions.colors[i], this.boxOptions.colors[i]]
+      } else {
+        color = [this.boxOptions.colors[j], this.boxOptions.colors[j]]
+      }
     }
 
     const yRatio = this.yRatio[this.yaxisIndex]
