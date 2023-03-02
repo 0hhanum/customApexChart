@@ -126,6 +126,7 @@ export default class XAxis {
         x: w.globals.gridWidth / 2 + w.config.xaxis.title.offsetX,
         y:
           this.offY +
+          w.globals.xAxisLabelsHeight +
           w.config.xaxis.labels.offsetY +
           w.config.xaxis.title.offsetY,
         text: w.config.xaxis.title.text,

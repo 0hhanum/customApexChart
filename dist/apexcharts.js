@@ -1,5 +1,5 @@
 /*!
- * ApexCharts v1.0.7
+ * ApexCharts v1.0.8
  * (c) 2018-2023 ApexCharts
  * Released under the MIT License.
  */
@@ -9514,7 +9514,7 @@
           });
           var elXAxisTitleText = graphics.drawText({
             x: w.globals.gridWidth / 2 + w.config.xaxis.title.offsetX,
-            y: this.offY + w.config.xaxis.labels.offsetY + w.config.xaxis.title.offsetY,
+            y: this.offY + w.globals.xAxisLabelsHeight + w.config.xaxis.labels.offsetY + w.config.xaxis.title.offsetY,
             text: w.config.xaxis.title.text,
             textAnchor: 'middle',
             fontSize: w.config.xaxis.title.style.fontSize,
