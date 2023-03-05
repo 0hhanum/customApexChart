@@ -195,7 +195,6 @@ class Line {
   _initSerieVariables(series, i, realIndex) {
     const w = this.w
     const graphics = new Graphics(this.ctx)
-
     // width divided into equal parts
     this.xDivision =
       w.globals.gridWidth /
@@ -473,6 +472,7 @@ class Line {
     isRangeStart,
     seriesRangeEnd
   }) {
+    console.log('------')
     const w = this.w
     let graphics = new Graphics(this.ctx)
     let yRatio = this.yRatio
@@ -493,7 +493,6 @@ class Line {
     for (let j = 0; j < iterations; j++) {
       const isNull =
         typeof series[i][j + 1] === 'undefined' || series[i][j + 1] === null
-
       if (w.globals.isXNumeric) {
         let sX = w.globals.seriesX[realIndex][j + 1]
         if (typeof w.globals.seriesX[realIndex][j + 1] === 'undefined') {
@@ -502,8 +501,19 @@ class Line {
         }
         x = (sX - w.globals.minX) / this.xRatio
       } else {
-        x = x + this.xDivision
+        if (w.config.chart.type === 'boxPlot') {
+          const seriesXName = w.globals.seriesX[realIndex][j + 1]
+          console.log(seriesXName)
+          // if (!seriesXName) continue
+          // x = x + this.xDivision * w.globals.labels.indexOf(seriesXName)
+          // console.log(this.xDivision)
+          console.log(x)
+          x = x + this.xDivision
+        } else {
+          x = x + this.xDivision
+        }
       }
+      console.log(x, w.globals.seriesX[realIndex][j + 1])
 
       if (w.config.chart.stacked) {
         if (
@@ -558,7 +568,6 @@ class Line {
 
       // push current Y that will be used as next series's bottom position
       yArrj.push(y)
-
       let pointsPos = this.lineHelpers.calculatePoints({
         series,
         x,

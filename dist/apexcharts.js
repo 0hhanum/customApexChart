@@ -11097,7 +11097,11 @@
         }
 
         for (var i = startingIndex; i < len; i++) {
-          gl.dataPoints = Math.max(gl.dataPoints, series[i].length);
+          if (this.w.config.chart.type === 'boxPlot') {
+            gl.dataPoints = gl.labels.length;
+          } else {
+            gl.dataPoints = Math.max(gl.dataPoints, series[i].length);
+          }
 
           if (gl.categoryLabels.length) {
             gl.dataPoints = gl.categoryLabels.filter(function (label) {
@@ -23457,6 +23461,7 @@
             yArrj = _ref3.yArrj,
             isRangeStart = _ref3.isRangeStart,
             seriesRangeEnd = _ref3.seriesRangeEnd;
+        console.log('------');
         var w = this.w;
         var graphics = new Graphics(this.ctx);
         var yRatio = this.yRatio;
@@ -23486,8 +23491,20 @@
 
             x = (sX - w.globals.minX) / this.xRatio;
           } else {
-            x = x + this.xDivision;
+            if (w.config.chart.type === 'boxPlot') {
+              var seriesXName = w.globals.seriesX[realIndex][j + 1];
+              console.log(seriesXName); // if (!seriesXName) continue
+              // x = x + this.xDivision * w.globals.labels.indexOf(seriesXName)
+              // console.log(this.xDivision)
+
+              console.log(x);
+              x = x + this.xDivision;
+            } else {
+              x = x + this.xDivision;
+            }
           }
+
+          console.log(x, w.globals.seriesX[realIndex][j + 1]);
 
           if (w.config.chart.stacked) {
             if (i > 0 && w.globals.collapsedSeries.length < w.config.series.length - 1) {

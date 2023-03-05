@@ -52,7 +52,11 @@ class Range {
     }
 
     for (let i = startingIndex; i < len; i++) {
-      gl.dataPoints = Math.max(gl.dataPoints, series[i].length)
+      if (this.w.config.chart.type === 'boxPlot') {
+        gl.dataPoints = gl.labels.length
+      } else {
+        gl.dataPoints = Math.max(gl.dataPoints, series[i].length)
+      }
 
       if (gl.categoryLabels.length) {
         gl.dataPoints = gl.categoryLabels.filter(
