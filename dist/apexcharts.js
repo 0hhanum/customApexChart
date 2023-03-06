@@ -23461,7 +23461,6 @@
             yArrj = _ref3.yArrj,
             isRangeStart = _ref3.isRangeStart,
             seriesRangeEnd = _ref3.seriesRangeEnd;
-        console.log('------');
         var w = this.w;
         var graphics = new Graphics(this.ctx);
         var yRatio = this.yRatio;
@@ -23476,7 +23475,15 @@
           iterations = w.globals.dataPoints > 1 ? w.globals.dataPoints - 1 : w.globals.dataPoints;
         }
 
+        if (w.config.chart.type === 'boxPlot') {
+          iterations = series[i].length - 1;
+        }
+
         var y2 = y;
+
+        var xAxisMap = _defineProperty({}, w.globals.labels[0], x);
+
+        var currentX = x;
 
         for (var j = 0; j < iterations; j++) {
           var isNull = typeof series[i][j + 1] === 'undefined' || series[i][j + 1] === null;
@@ -23493,18 +23500,18 @@
           } else {
             if (w.config.chart.type === 'boxPlot') {
               var seriesXName = w.globals.seriesX[realIndex][j + 1];
-              console.log(seriesXName); // if (!seriesXName) continue
-              // x = x + this.xDivision * w.globals.labels.indexOf(seriesXName)
-              // console.log(this.xDivision)
 
-              console.log(x);
-              x = x + this.xDivision;
+              if (!xAxisMap.hasOwnProperty(seriesXName)) {
+                currentX += this.xDivision;
+                xAxisMap[seriesXName] = currentX;
+                x = currentX;
+              } else {
+                x = xAxisMap[seriesXName];
+              }
             } else {
               x = x + this.xDivision;
             }
           }
-
-          console.log(x, w.globals.seriesX[realIndex][j + 1]);
 
           if (w.config.chart.stacked) {
             if (i > 0 && w.globals.collapsedSeries.length < w.config.series.length - 1) {

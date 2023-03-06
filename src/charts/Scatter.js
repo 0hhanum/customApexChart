@@ -76,7 +76,6 @@ export default class Scatter {
         ) {
           shouldDraw = false
         }
-
         if (shouldDraw) {
           const point = this.drawPoint(
             x,
