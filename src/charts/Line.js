@@ -57,12 +57,9 @@ class Line {
 
     // push all series in an array, so we can draw in reverse order (for stacked charts)
     let allSeries = []
-
     for (let i = 0; i < series.length; i++) {
       series = this.lineHelpers.sameValueSeriesFix(i, series)
-
       let realIndex = w.globals.comboCharts ? seriesIndex[i] : i
-
       this._initSerieVariables(series, i, realIndex)
 
       let yArrj = [] // hold y values of current iterating series
@@ -73,7 +70,6 @@ class Line {
 
       let linePaths = []
       let areaPaths = []
-
       this.ctx.series.addCollapsedClassToSeries(this.elSeries, realIndex)
 
       if (w.globals.isXNumeric && w.globals.seriesX.length > 0) {
@@ -81,7 +77,6 @@ class Line {
       }
 
       xArrj.push(x)
-
       let pX = x
       let pY
       let pY2
@@ -124,7 +119,6 @@ class Line {
         prevY,
         prevY2
       })
-
       const iteratingOpts = {
         type,
         series,
@@ -143,7 +137,6 @@ class Line {
         yArrj,
         seriesRangeEnd
       }
-
       let paths = this._iterateOverDataPoints({
         ...iteratingOpts,
         iterations: type === 'rangeArea' ? series[i].length - 1 : undefined,
@@ -195,7 +188,6 @@ class Line {
   _initSerieVariables(series, i, realIndex) {
     const w = this.w
     const graphics = new Graphics(this.ctx)
-
     // width divided into equal parts
     this.xDivision =
       w.globals.gridWidth /
@@ -477,7 +469,6 @@ class Line {
     let graphics = new Graphics(this.ctx)
     let yRatio = this.yRatio
     let { prevY, linePath, areaPath, pathFromLine, pathFromArea } = pathsFrom
-
     const minY = Utils.isNumber(w.globals.minYArr[realIndex])
       ? w.globals.minYArr[realIndex]
       : w.globals.minY
@@ -488,12 +479,15 @@ class Line {
           ? w.globals.dataPoints - 1
           : w.globals.dataPoints
     }
-
+    if (w.config.chart.type === 'boxPlot') {
+      iterations = series[i].length - 1
+    }
     let y2 = y
+    const xAxisMap = { [w.globals.labels[0]]: x }
+    let currentX = x
     for (let j = 0; j < iterations; j++) {
       const isNull =
         typeof series[i][j + 1] === 'undefined' || series[i][j + 1] === null
-
       if (w.globals.isXNumeric) {
         let sX = w.globals.seriesX[realIndex][j + 1]
         if (typeof w.globals.seriesX[realIndex][j + 1] === 'undefined') {
@@ -502,9 +496,19 @@ class Line {
         }
         x = (sX - w.globals.minX) / this.xRatio
       } else {
-        x = x + this.xDivision
+        if (w.config.chart.type === 'boxPlot') {
+          const seriesXName = w.globals.seriesX[realIndex][j + 1]
+          if (!xAxisMap.hasOwnProperty(seriesXName)) {
+            currentX += this.xDivision
+            xAxisMap[seriesXName] = currentX
+            x = currentX
+          } else {
+            x = xAxisMap[seriesXName]
+          }
+        } else {
+          x = x + this.xDivision
+        }
       }
-
       if (w.config.chart.stacked) {
         if (
           i > 0 &&
@@ -558,7 +562,6 @@ class Line {
 
       // push current Y that will be used as next series's bottom position
       yArrj.push(y)
-
       let pointsPos = this.lineHelpers.calculatePoints({
         series,
         x,

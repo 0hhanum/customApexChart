@@ -11097,7 +11097,11 @@
         }
 
         for (var i = startingIndex; i < len; i++) {
-          gl.dataPoints = Math.max(gl.dataPoints, series[i].length);
+          if (this.w.config.chart.type === 'boxPlot') {
+            gl.dataPoints = gl.labels.length;
+          } else {
+            gl.dataPoints = Math.max(gl.dataPoints, series[i].length);
+          }
 
           if (gl.categoryLabels.length) {
             gl.dataPoints = gl.categoryLabels.filter(function (label) {
@@ -23471,7 +23475,15 @@
           iterations = w.globals.dataPoints > 1 ? w.globals.dataPoints - 1 : w.globals.dataPoints;
         }
 
+        if (w.config.chart.type === 'boxPlot') {
+          iterations = series[i].length - 1;
+        }
+
         var y2 = y;
+
+        var xAxisMap = _defineProperty({}, w.globals.labels[0], x);
+
+        var currentX = x;
 
         for (var j = 0; j < iterations; j++) {
           var isNull = typeof series[i][j + 1] === 'undefined' || series[i][j + 1] === null;
@@ -23486,7 +23498,19 @@
 
             x = (sX - w.globals.minX) / this.xRatio;
           } else {
-            x = x + this.xDivision;
+            if (w.config.chart.type === 'boxPlot') {
+              var seriesXName = w.globals.seriesX[realIndex][j + 1];
+
+              if (!xAxisMap.hasOwnProperty(seriesXName)) {
+                currentX += this.xDivision;
+                xAxisMap[seriesXName] = currentX;
+                x = currentX;
+              } else {
+                x = xAxisMap[seriesXName];
+              }
+            } else {
+              x = x + this.xDivision;
+            }
           }
 
           if (w.config.chart.stacked) {
